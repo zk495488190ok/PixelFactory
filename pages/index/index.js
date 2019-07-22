@@ -31,6 +31,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: '绘画板',
+    })
   },
   onReady: function (e) {
     this.setData({colors:pickerColors});
@@ -120,23 +123,25 @@ function saveCanvasImageToPhotoAlbum(){
     title: '提示',
     content: '确定保存到相册?',
     success(obj){
-      wx.canvasToTempFilePath({
-        canvasId: 'firstCanvas',
-        fileType: 'png',
-        quality: 1,
-        success(res) {
-          var path = res.tempFilePath;
-          wx.saveImageToPhotosAlbum({
-            filePath: path,
-            success(saveRes) {
-              wx.showToast({
-                title: 'Success!',
-                icon: 'success'
-              })
-            }
-          })
-        }
-      }, this)
+      if(obj.confirm){
+        wx.canvasToTempFilePath({
+          canvasId: 'firstCanvas',
+          fileType: 'png',
+          quality: 1,
+          success(res) {
+            var path = res.tempFilePath;
+            wx.saveImageToPhotosAlbum({
+              filePath: path,
+              success(saveRes) {
+                wx.showToast({
+                  title: 'Success!',
+                  icon: 'success'
+                })
+              }
+            })
+          }
+        }, this)
+      }
     }
   })
 }
