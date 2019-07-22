@@ -1,0 +1,15 @@
+<!--index.wxml-->
+<canvas style="width: 100%; height:{{canvasHeight}}px" canvas-id="firstCanvas" bindtouchstart='touchStart' bindtouchmove='touchMove' bindtouchend='touchEnd'></canvas>
+<view class='scroll_box'>
+  <scroll-view scroll-x style="width: auto;height:auto;whilte-space:nowrap;overflow:hidden;">
+    <view class="scroll-view-item_H" wx:for="{{colors}}" wx:for-index="index" wx:key="color-picker">
+      <view wx:if="{{curColorIndex == index}}" id="{{index}}" class='scroll-view-item-selected' style="background:{{item}};" bindtap='colorItemTouchAction'></view>
+      <view wx:if="{{curColorIndex != index}}" id="{{index}}" class='scroll-view-item-unselected' style="background:{{item}};" bindtap='colorItemTouchAction'></view>
+    </view>
+  </scroll-view>
+</view>
+<button type="default" style='margin-top:10px;margin-left:10px;' size='mini' bindtap="undoTouchAction" hover-class="other-button-hover"> 撤销 </button>
+<button type="default" style='margin-top:10px;margin-left:10px;' size='mini' bindtap="restoreTouchAction" hover-class="other-button-hover"> 恢复 </button>
+
+<button type="default" style='margin-top:10px;margin-left:10px;' size='mini' bindtap="loadInPhotoAlbumAction" hover-class="other-button-hover"> 导入相册 </button>
+<button type="default" style='margin-top:10px;margin-left:10px;' size='mini' bindtap="saveToPhotoAlbumAction" hover-class="other-button-hover"> 保存相册 </button>
